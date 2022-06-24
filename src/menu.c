@@ -10,7 +10,8 @@ size_t my_strlen(const char *s) {
   }
   return len;
 }
-//je suis la 
+//je suis la
+//me too
 char *my_strncpy(char *restrict dest, const char *src, size_t n) {
   size_t index = 0;
 
