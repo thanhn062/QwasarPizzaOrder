@@ -11,9 +11,14 @@ size_t my_strlen(const char *s) {
   }
   return len;
 }
+<<<<<<< HEAD
 */
 //
 /*
+=======
+//je suis la
+//me too
+>>>>>>> 762164570a886cd72274beccba1ef0cfcc7f5c5b
 char *my_strncpy(char *restrict dest, const char *src, size_t n) {
   size_t index = 0;
  
