@@ -34,7 +34,7 @@
 #define PIZZA       "\U0001F355"
 #define ZZZ         "\U0001F4A4"
 #define UNAMUSED    "\U0001F612"
-l
+
 
 #define EOC         "\033[0m"
 #define BLACK       "\033[0;30m"
