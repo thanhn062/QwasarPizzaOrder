@@ -1,20 +1,18 @@
-# CC = gcc
-
-# CFLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror
-
-# TARGET = project_name
-
+CC = gcc # clang
+CFLAGS = #-g3 -fsanitize=address -Wall -Wextra -Werror
+SRC = ./src/main.c
 # SOURCES := $(shell find $(SOURCEDIR/lib) -name '*.c')
-
 # OBJECTS = $(SOURCES:.c=.o)
+TARGET = pizza
 
-# $(TARGET): $(OBJECTS)
-# 	$(CC) $(CFLAGS) -o $@ $^ 
+$(TARGET):
+	@$(CC) $(CFLAGS) $(SRC) -o $@
 
-# .PHONY: clean fclean
+.PHONY: clean
 
-# clean:
-# 	@rm $(OBJECTS)
+clean:
+	@rm $(TARGET) receipt
+
 
 # fclean: clean
 # 	@rm $(TARGET)
@@ -65,4 +63,3 @@
 
 # #remove everything and recompile
 # re: fclean all
-
