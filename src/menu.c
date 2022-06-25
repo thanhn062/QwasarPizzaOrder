@@ -1,60 +1,13 @@
-// #include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-/*
-size_t my_strlen(const char *s) {
-  size_t len = 0;
- 
-  while (s[len] != '\0') {
-    len += 1;
-  }
-  return len;
-}
-<<<<<<< HEAD
-*/
-//
-/*
-=======
-//je suis la
-//me too
->>>>>>> 762164570a886cd72274beccba1ef0cfcc7f5c5b
-char *my_strncpy(char *restrict dest, const char *src, size_t n) {
-  size_t index = 0;
- 
-  while (index < n && src[index] != '\0') {
-    dest[index] = src[index];
-    index += 1;
-  }
-  while (index < n) {
-    dest[index] = '\0';
-    index += 1;
-  }
-  return dest;
-}
-//
-*/
-/*
-int my_strncmp(const char *s1, const char *s2, size_t n) {
-  size_t index = 0;
- 
-  while (s1[index] != '\0' || s2[index] != '\0' || index < n) {
-    if (s1[index] != s2[index]) {
-      return s1[index] - s2[index];
-    }
-    index += 1;
-  }
-  return 0;
-}
-*/
-char *arr_size[4] = {
+#include "../include/pizza_order.h"
+
+const char *arr_size[4] = {
   "Small",
   "Medium",
   "Big",
   "Gigantic"
 };
  
-char *arr_ingredient[7] = {
+const char *arr_ingredient[7] = {
   "pepperoni",
   "bannana peps",
   "sausage",
@@ -64,17 +17,14 @@ char *arr_ingredient[7] = {
   "bell peps"
 };
  
-float size_price[] = {0.00, 1.00, 2.00, 3.00};
-float total_size; //
-float pizza_base_price = 9.99;
-float ingredient_price = 1.00;
-float total_ingredient;
- 
-// add a cart?
+const float size_price[] = {0.00, 1.00, 2.00, 3.00};
+const float pizza_base_price = 9.99;
+const float ingredient_price = 1.00;
  
 typedef struct s_pizza {
   char* size[4]; // char**size char* char*
   float price[7];
+  float subtotal;
   char ingredient[7];
 } pizza;
  
@@ -87,42 +37,44 @@ void menu() {
    strcpy( s_pizza_p->size[0], "Big");
    strcpy( s_pizza_p->ingredient, "pepperoni");
  
- }
+}
  
  int ingredient_total_price() {
-    pizza pizza_order;
-    int index = 0;
- 
-   while (pizza_order.ingredient[index] != '\0') {
-        total_ingredient = index * ingredient_price;
-        index += 1;
-   }
-   return total_ingredient;
+  pizza pizza_order;
+  int index = 0;
+  float total_ingredient;
+
+
+  while (pizza_order.ingredient[index] != '\0') {
+    total_ingredient = index * ingredient_price;
+    index += 1;
+  }
+  return total_ingredient;
  }
- 
+
  int size_total_price() {
-   pizza pizza_order;
+   pizza* pizza_order;
    int index = 0;
  
-   while (arr_size[index] != *pizza_order.size) {
-       printf("%s", *pizza_order.size);
+   while (arr_size[index] != *pizza_order->size) {
+       printf("%s", *pizza_order->size);
     index += 1;
-    total_size = size_price[index];
+    pizza_order->subtotal = size_price[index];
    }
-   return total_size;
+   return pizza_order->subtotal;
 }
  
-float order_total_price() {
-    float total_price = total_size + total_ingredient + pizza_base_price;
-    return total_size + total_ingredient + pizza_base_price;
-}
+// float order_total_price() {
+    // float total_price = subtotal + total_ingredient + pizza_base_price;
+    // return subtotal + total_ingredient + pizza_base_price;
+// } // change
 
 int main(void) {
-    menu();
-    ingredient_total_price();
-    size_total_price();
-    printf("Total Cost: $%f\n", order_total_price());
-    printf("Subtotal Cart Cost: $%f\n", order_total_price());
- 
+  menu();
+  ingredient_total_price();
+  size_total_price();
+  // printf("Total Cost: $%f\n", order_total_price());
+  // printf("Subtotal Cart Cost: $%f\n", order_total_price());
+
   return 0;
 }

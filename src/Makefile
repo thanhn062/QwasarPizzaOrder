@@ -1,50 +1,68 @@
-/*
+# CC = gcc
 
-<----- Left in Program for when Migrated to differnt IDE ----->
+# CFLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror
 
-#macro definitions
-#change target and file for project
-TARGET = main  
-FILES = main
-#       main.c print.c add.c
-SRC = $(addsuffix .c,$(FILES))
-#       main.o print.o add.o
-OBJ = $(addsuffix .o,$(FILES))
+# TARGET = project_name
 
-CFLAGS += -Wall -Wextra -Werror 
+# SOURCES := $(shell find $(SOURCEDIR/lib) -name '*.c')
 
-#-fsantize=address
+# OBJECTS = $(SOURCES:.c=.o)
 
-#rules
-#rule name/file to be created: rule dependencies
-#{tab}command to execute
-#{tab}addintional commands...
-#@,<,^
-#@ = rule/target
-#^ = expand macro
-#< = first element of macro
+# $(TARGET): $(OBJECTS)
+# 	$(CC) $(CFLAGS) -o $@ $^ 
 
-#rules we make up that are not files
-.PHONY: all clean fclean re
+# .PHONY: clean fclean
 
-all: $(TARGET) 
-#@ before rule silences them
+# clean:
+# 	@rm $(OBJECTS)
 
-$(TARGET): $(OBJ)
-	gcc -o $(TARGET) $(OBJ)
+# fclean: clean
+# 	@rm $(TARGET)
+# <----- Left in Program for when Migrated to differnt IDE ----->
 
-$(OBJ): $(SRC)
-	gcc -c  $(CFLAGS) $(SRC)
+# #macro definitions
+# #change target and file for project
+# TARGET = main  
+# FILES = main
+# #       main.c print.c add.c
+# SRC = $(addsuffix .c,$(FILES))
+# #       main.o print.o add.o
+# OBJ = $(addsuffix .o,$(FILES))
 
-crun : all
-	./$(TARGET)
+# CFLAGS += -Wall -Wextra -Werror 
 
-clean:
-	rm -f $(OBJ)
+# #-fsantize=address
 
-fclean: clean	
-	rm -f $(TARGET)
+# #rules
+# #rule name/file to be created: rule dependencies
+# #{tab}command to execute
+# #{tab}addintional commands...
+# #@,<,^
+# #@ = rule/target
+# #^ = expand macro
+# #< = first element of macro
 
-#remove everything and recompile
-re: fclean all
-*/
+# #rules we make up that are not files
+# .PHONY: all clean fclean re
+
+# all: $(TARGET) 
+# #@ before rule silences them
+
+# $(TARGET): $(OBJ)
+# 	gcc -o $(TARGET) $(OBJ)
+
+# $(OBJ): $(SRC)
+# 	gcc -c  $(CFLAGS) $(SRC)
+
+# crun : all
+# 	./$(TARGET)
+
+# clean:
+# 	rm -f $(OBJ)
+
+# fclean: clean	
+# 	rm -f $(TARGET)
+
+# #remove everything and recompile
+# re: fclean all
+
