@@ -13,9 +13,9 @@ static struct termios old, current; //static
 //TODO add mouse interactivity
 // std get passwd or get input fn
 void init_clui(void) {
-  printf("%s", BGD_BLUE); // add on window resize mode -1 so adjust background menu_bg_color size
-  terminal_control_enter_alternate_screen();
-  terminal_control_clear_screen();
+  printf("%s", TC_BGBLU); // add on window resize mode -1 so adjust background menu_bg_color size
+  tc_enter_alt_screen();
+  tc_clear_screen();
   printf("\e[?25l"); // hide cursor
   // printf("%s ██████╗ ██╗    ██╗ █████╗ ███████╗ █████╗ ██████╗    ██╗ ██████╗ \n██╔═══██╗██║    ██║██╔══██╗██╔════╝██╔══██╗██╔══██╗   ██║██╔═══██╗\n██║   ██║██║ █╗ ██║███████║███████╗███████║██████╔╝   ██║██║   ██║\n██║▄▄ ██║██║███╗██║██╔══██║╚════██║██╔══██║██╔══██╗   ██║██║   ██║\n╚██████╔╝╚███╔███╔╝██║  ██║███████║██║  ██║██║  ██║██╗██║╚██████╔╝\n╚══▀▀═╝  ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝ ╚═════╝ %s", TERMINAL_CONTROL_BOLD_GREEN, TERMINAL_CONTROL_BOLD_GREEN);
 }
@@ -24,11 +24,11 @@ void reset_clui(void) {
   // fgets(line, sizeof(line), stdin);
   // // write(1, ch, 1);
   // if (ch == 'q') {
-  terminal_control_exit_alternate_screen();
-  printf("%s", BGD_NORMAL);
+  tc_exit_alt_screen();
+  printf("%s", TC_BGNRM);
   // printf("\e[?25h"); // where to place?
-  terminal_control_clear_screen();
-  terminal_control_move_cursor(0, 0);
+  tc_clear_screen();
+  tc_move_cursor(0, 0);
   printf("\e[?25h"); // not working?
   //if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &current) != 0) {
   //   // break;
@@ -41,91 +41,91 @@ void reset_clui(void) {
 // rename Gigantic to Giant? // escap sequence bg color are strings not char
 void print_cli(int cols, int rows, int mode, char* app_bg_color, char* select_bg_color, char* border_bg_color, char* menu_bg_color) { // use mouse to register input along with keys and words?
   // add ascii art Pizza Shop like Gandalf ascii (how did Gaetan made ascii art for Gandalf? is it necessarly a manual process?)
-  // terminal_control_move_cursor(5, 5);
+  // tc_move_cursor(5, 5);
   // write(1, "\x1B[1;42m\U0001F355Welcome to the Qwasar Pizza Shop\U0001F355\x1B[1;43m\n\n", 90);
-  // terminal_control_get_cols_rows(&cols, &rows);
-  // terminal_control_move_cursor(5, 5);
+  // tc_get_cols_rows(&cols, &rows);
+  // tc_move_cursor(5, 5);
   // write(1, "\u261e %sSmall\x1B[1;43m\t%sMedium\x1B[1;43m\t%sBig\x1B[1;43m\t%sGigantic\x1B[1;43m", 90);
   // if (mode == 0) {// comment out
   //   write(1, "\x1B[1;42m\U0001F355Welcome to the Qwasar Pizza Shop\U0001F355\x1B[1;43m\n\n", 90);
-  //   terminal_control_get_cols_rows(&cols, &rows);
-  //   terminal_control_move_cursor(5, 5);
+  //   tc_get_cols_rows(&cols, &rows);
+  //   tc_move_cursor(5, 5);
   //   write(1, "\u261e \x1B[1;42mSmall\x1B[1;43m\t%sMedium\x1B[1;43m\t%sLarge\x1B[1;43m\t%sGigantic\x1B[1;43m", 90);
   // }
   // add a background shadow effect to make the menu look like it's levitating/floating
   int init_pos = 0;
   int index = 4; // menu pos
-  terminal_control_clear_screen();
-  terminal_control_get_cols_rows(&cols, &rows); // can I remove it?
-  terminal_control_move_cursor(init_pos, rows / 2);
+  tc_clear_screen();
+  tc_get_cols_rows(&cols, &rows); // can I remove it?
+  tc_move_cursor(init_pos, rows / 2);
   // printf("%s %sWelcome to the Qwasar Pizza Shop%s %s", PIZZA, select_bg_color, app_bg_color, PIZZA); // printf doesn't behave same as write for cursor placement//\nPlease Enter what size Pizza you would like.U0001F355\x
   printf("%s %sWelcome to the %s %s %s %s %s %s Pizza Shop%s %s", PIZZA, select_bg_color, F_Q, F_W, F_A, F_S, F_A, F_R, app_bg_color, PIZZA); // printf doesn't behave same as write for cursor placement//\nPlease Enter what size Pizza you would like.U0001F355\x
   if (mode == -1) {
-    terminal_control_move_cursor(index++, 6); //  \x1B[1;43m
+    tc_move_cursor(index++, 6); //  \x1B[1;43m
     printf("press any key to continue..."); // welcome screen
   }
   else {
-    terminal_control_move_cursor(index++, rows / 4);
-    printf("%s                                                               %s", BGD_WHITE, app_bg_color);
-    terminal_control_move_cursor(index++, rows / 4);
-    printf("%s  %s                            MENU                           %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
-    terminal_control_move_cursor(index++, rows / 4);
-    printf("%s                                                               %s", BGD_WHITE, app_bg_color);
-    // terminal_control_move_cursor(index++, rows / 4); //bug
-    // terminal_control_move_cursor(index++, rows / 4); //bug
-    // terminal_control_move_cursor(index++, rows / 4); //bug
-    terminal_control_move_cursor(index++, rows / 4); //bug
+    tc_move_cursor(index++, rows / 4);
+    printf("%s                                                               %s", TC_BGWHT, app_bg_color);
+    tc_move_cursor(index++, rows / 4);
+    printf("%s  %s                            MENU                           %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
+    tc_move_cursor(index++, rows / 4);
+    printf("%s                                                               %s", TC_BGWHT, app_bg_color);
+    // tc_move_cursor(index++, rows / 4); //bug
+    // tc_move_cursor(index++, rows / 4); //bug
+    // tc_move_cursor(index++, rows / 4); //bug
+    tc_move_cursor(index++, rows / 4); //bug
     switch (mode) {// comment out
     case 0:
       // \x1B[1;42m        \x1B[1;43m // \x1B[1;42m\x1B f        [1;43m\n
-      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", BGD_WHITE, select_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
+      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", TC_BGWHT, select_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
       break;
     case 1:
-      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, select_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
+      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, select_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
       break;  
     case 2:
-      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, select_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
+      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, select_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
       break;
     case 3:
-      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, select_bg_color, BGD_WHITE, app_bg_color); // is it necessary to go back go normal each time instead of just once?
+      printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, select_bg_color, TC_BGWHT, app_bg_color); // is it necessary to go back go normal each time instead of just once?
       break;
     case 4:
-      // terminal_control_move_cursor(index, rows / 4);
-      // printf("%s  %s                                                           %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
-      // terminal_control_move_cursor(index++, rows / 4);
-      printf("%s  %s Please Enter what size Pizza you would like.              %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color); // toppings
+      // tc_move_cursor(index, rows / 4);
+      // printf("%s  %s                                                           %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
+      // tc_move_cursor(index++, rows / 4);
+      printf("%s  %s Please Enter what size Pizza you would like.              %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color); // toppings
       break;
     default:
       // else/default if all else, all case's do not match
       //\nPlease Enter what size Pizza you would like.
-      // terminal_control_move_cursor(index++, 9);
+      // tc_move_cursor(index++, 9);
       // printf("Please Enter what size Pizza you would like.");
-      // terminal_control_move_cursor(index++, rows / 4);
-      // printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
-      // terminal_control_move_cursor(index++, rows / 4);
-      printf("%s                                                               %s", BGD_WHITE, app_bg_color);
+      // tc_move_cursor(index++, rows / 4);
+      // printf("%s  %s    Small    %s %s    Medium    %s %s    Large    %s %s    Gigantic    %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
+      // tc_move_cursor(index++, rows / 4);
+      printf("%s                                                               %s", TC_BGWHT, app_bg_color);
       while (index < MENU_SIZE) {
-      terminal_control_move_cursor(index, rows / 4);
-      printf("%s  %s                                                           %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
+      tc_move_cursor(index, rows / 4);
+      printf("%s  %s                                                           %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
       index += 1;
       }
-      terminal_control_move_cursor(index, rows / 4);
-      printf("%s                                                               %s", BGD_WHITE, app_bg_color);
-      terminal_control_move_cursor(0, 0);
-      // terminal_control_move_cursor(index++, rows / 4);
-      // printf("%s                                                               %s", BGD_WHITE, app_bg_color);
+      tc_move_cursor(index, rows / 4);
+      printf("%s                                                               %s", TC_BGWHT, app_bg_color);
+      tc_move_cursor(0, 0);
+      // tc_move_cursor(index++, rows / 4);
+      // printf("%s                                                               %s", TC_BGWHT, app_bg_color);
       // while (index < MENU_SIZE) {
-      //   terminal_control_move_cursor(index, rows / 4);
-      //   printf("%s  %s                                                           %s  %s", BGD_WHITE, menu_bg_color, BGD_WHITE, app_bg_color);
+      //   tc_move_cursor(index, rows / 4);
+      //   printf("%s  %s                                                           %s  %s", TC_BGWHT, menu_bg_color, TC_BGWHT, app_bg_color);
       //   index += 1;
       // }
-      // terminal_control_move_cursor(index, rows / 4);
-      // printf("%s                                                               %s", BGD_WHITE, app_bg_color);
-      // terminal_control_move_cursor(0, 0);
+      // tc_move_cursor(index, rows / 4);
+      // printf("%s                                                               %s", TC_BGWHT, app_bg_color);
+      // tc_move_cursor(0, 0);
       break;
   }
 }
-
+}
 void initTermios(int echo) {
   tcgetattr(0, &old);
   current = old;
@@ -207,7 +207,7 @@ int clui() { // is clui a good name?
   // how to write above result always?
   // while ((bytes = read(0, file, size)) > 0) { // how to hide and stop cursor?
   init_clui();
-  print_cli(cols, rows, mode, BGD_CYAN, BGD_MAGENTA, BGD_WHITE, BGD_BLUE);
+  print_cli(cols, rows, mode, TC_BGCYN, TC_BGMAG, TC_BGWHT, TC_BGBLU);
   mode = 5;
   while (1) { /*result != 0 iterate until told to move on */
     // print_cli(cols, rows, cols);
@@ -238,8 +238,8 @@ int clui() { // is clui a good name?
     // }
     
     // tap twice issue
-    // terminal_control_clear_screen();
-    // terminal_control_move_cursor(0, 0);
+    // tc_clear_screen();
+    // tc_move_cursor(0, 0);
     // print_cli(cols, rows, mode);
 
     // if (answer[0] == escp) { // remove arrow capabilities bug
@@ -270,11 +270,11 @@ int clui() { // is clui a good name?
       // print_cli(cols, rows, -1);
     // }
     if (mode == 5) {
-      print_cli(cols, rows, 5, BGD_CYAN, BGD_MAGENTA, BGD_WHITE, BGD_BLUE);
+      print_cli(cols, rows, 5, TC_BGCYN, TC_BGMAG, TC_BGWHT, TC_BGBLU);
       mode = -1;
     }
     else if (character == '\n') { // how to get the enter key and \n vs \r newline vs carriage return
-      print_cli(cols, rows, 4, BGD_CYAN, BGD_MAGENTA, BGD_WHITE, BGD_BLUE);
+      print_cli(cols, rows, 4, TC_BGCYN, TC_BGMAG, TC_BGWHT, TC_BGBLU);
       // getch use wait() to stop while loop etc...?
       // return EXIT_SUCCESS;
     }
@@ -298,7 +298,7 @@ int clui() { // is clui a good name?
           mode += 1;
         }
       }      
-      print_cli(cols, rows, mode, BGD_CYAN, BGD_MAGENTA, BGD_WHITE, BGD_BLUE);
+      print_cli(cols, rows, mode, TC_BGCYN, TC_BGMAG, TC_BGWHT, TC_BGBLU);
     }
     // else {
     // }
@@ -335,7 +335,7 @@ int clui() { // is clui a good name?
     //   mode = 3;
     //   printf("\n-> gigantic\n");
     // }
-    // terminal_control_clear_screen();
+    // tc_clear_screen();
     // print_cli(cols, rows, mode);
     // switch (result) {
     //   case -1:

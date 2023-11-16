@@ -1,7 +1,8 @@
 #macro definitions
 TARGET=exec
 DIR = objs/
-FILES = main print add
+# FILES = main print add
+FILES = clui # print add
 SRC = $(addsuffix .c,$(FILES))
 OBJ = $(addprefix $(DIR)addsuffix .o,$(FILES))
 CFLAGS+= -Wall -Wextra -Werror

@@ -1,10 +1,11 @@
 CC = gcc # clang
 OBJ = 
 CFLAGS = #-g3 -fsanitize=address -Wall -Wextra -Werror# -fsantize=
-SRC = ./src/main.c #./src/menu.c 
+# SRC = ./src/main.c #./src/menu.c 
+SRC = ./src/clui.c #./src/menu.c 
 # SOURCES := $(shell find $(SOURCEDIR/lib) -name '*.c')
 # OBJECTS = $(SOURCES:.c=.o)
-TARGET = clui2
+TARGET = clui-test
 #  $(OBJ)
 # all: $(TARGET) to add in re fclean all run
 $(TARGET):

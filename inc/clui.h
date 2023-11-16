@@ -5,6 +5,7 @@
 // #include <cstdio>
 // #include <my_string.h>
 #include "../src/my_libc/inc/my_string.h"
+#include "my_tc.h"
 #include <fcntl.h> // open() fd
 #include <string.h> // to be removed
 #include <unistd.h> // write read?
