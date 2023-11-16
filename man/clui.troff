@@ -1,0 +1,36 @@
+.TH CLUI 1 2022-06-16 QWASAR
+
+.SH NAME
+clui \- command line user interface
+
+.SH SYNOPSIS
+.B clui
+[\fB\-h\fR]
+[\fB\-?\fR]
+[\fB\-\-hlep\fR]
+[\fB\-v\fR]
+[\fB\-\-version\fR]
+[\fB\-d\fR \fIpath\fR]
+
+.SH
+DESCRIPTION
+.B clui
+displays the graphical command line interface for ordering on my_pizza_shop.
+
+.SH OPTIONS
+.TP
+.BR \-h ", " \-? ", " \-\-help
+.\" or escape \, \ instead of ", "
+displays this help information.
+.TP
+.BR \-v ", " \-\-version
+outputs only the version datestamp.
+.TP
+.BR \-d ", " \-\-dir " " \fIpath
+outputs only the version datestamp.
+
+.SH AUTHOR
+gandalf <gandalf@qwasar.io>
+
+.SH SEE ALSO
+\fBperl\fR(1perl)

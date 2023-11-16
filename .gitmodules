@@ -1,0 +1,3 @@
+[submodule "src/my_libc"]
+	path = src/my_libc
+	url = aubin_t:aubin_t/my_libc.git
